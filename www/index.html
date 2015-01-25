@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Kurukshetra</title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/jquery-mobile.min.css" rel="stylesheet">
+    <style type="text/css">
+    .textcolor{
+        color: rgb(210, 96, 12);
+    }
+    </style>
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+   
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-1.7.1.min.js"></script>
+
+
+    <script src="js/app.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/service.js"></script>
+    
+    
+  </head>
+  <body ng-app="kurukshetra" >
+    <ion-nav-bar class="nav-title-slide-ios7 bar-positive">
+      <ion-nav-back-button class="button-icon ion-arrow-left-c">
+      </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
+
+    <script type="text/ng-template" id="/login.html" >
+        <ion-view title="Login">
+        <ion-content class="padding">
+        <img src="./k.png" width="80%">
+        <div class="list list-inset">
+            <div class="item item-input-inset item-input-inset">
+                <div class="col textcolor">Username</div>
+                <div class="col "><input type="text" ng-model="user.username" id="username"></div>
+            </div>
+            <div class="item item-input-inset item-input-inset">
+                <div class="col textcolor">Password</div>
+                <div class="col"><input type="password" ng-model="user.password" id="password"></div>
+            </div>
+        </div>
+        <div id="error">
+        </div>
+        <div class="list row responsive-sm ">
+                  <a ng-click="verify()" class=" button icon-right ion-chevron-right button-calm">Next</a>
+                </div>
+        </ion-view>
+        </ion-content>
+        </script>
+
+
+
+
+
+
+    <script type="text/ng-template" id="/home.html" >
+    <ion-view title="Home">
+    <ion-content class="padding">
+    <div class="list row responsive-sm ">
+                
+                <div class="list row responsive-sm " >
+                    <div class="item item-input ">
+                      <div class="input-label textcolor">
+                        Event Name
+                      </div>
+                      <p> {{user.event_name}} </p>
+                    </div> 
+                </div>
+                
+                <div class="list row responsive-sm ">
+                  <label class="item item-input item-select">
+                      <div class="input-label textcolor">
+                        Round
+                      </div>
+                      <select ng-model="user.round" name="round" id="round">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>Final</option>
+                        
+                      </select>
+                    </label>
+                </div>
+                <div class="list row responsive-sm ">
+                  <label class="item item-input item-select">
+                      <div class="input-label textcolor">
+                        Place
+                      </div>
+                      <select ng-model="user.place" id="place">
+                        <option >Next Round</option>
+                        <option>First</option>
+                        <option>Second</option>
+                        <option>Third</option>
+                      </select>
+                    </label>
+                </div>
+             
+                <div class="list row responsive-sm ">
+                  <div class="item item-input item-select">
+                      <div class="input-label textcolor">
+                        Participant Type
+                      </div>
+                      <select ng-model="user.participant_type" id="participant_type">
+                        <option >Individual</option>
+                        <option>Team</option>
+                      </select>
+                    </div>
+                </div>              
+                <div class="list row responsive-sm ">
+                  <a ng-click="nextpage()" class=" button icon-right ion-chevron-right button-calm">Next</a>
+                </div>
+                </ion-view>
+                </ion-content>
+    </script>
+
+
+        <script type="text/ng-template" id="/users.html" >
+        <ion-view title="Team Members">
+        <ion-content class="padding">
+        <div class="row">
+          <div class="item item-input">
+            <div class="input-label">
+              Team Name
+            </div>
+            <input type="text" ng-model="user.teamname">
+          </div>
+        </div>
+        <div class="list list-inset">
+            <div class="item item-input-inset item-input-inset">
+                <div class="col">User 1</div>
+                <div class="col"><input type="text" ng-model="user.qr1"></div>
+                <div class="col"><button class="button icon ion-qr-scanner" ng-click="startscan1()">
+                </button></div>
+            </div>
+            <div class="item item-input-inset item-input-inset">
+                <div class="col">User 2</div>
+                <div class="col"><input type="text" ng-model="user.qr2"></div>
+                <div class="col"><button class="button icon ion-qr-scanner" ng-click="startscan2()">
+                </button></div>
+            </div>
+            <div class="item item-input-inset item-input-inset">
+                <div class="col">User 3</div>
+                <div class="col"><input type="text" ng-model="user.qr3"></div>
+                <div class="col"><button class="button icon ion-qr-scanner" ng-click="startscan3()">
+                </button></div>
+            </div>
+            <div class="item item-input-inset item-input-inset">
+                <div class="col">User 4</div>
+                <div class="col"><input type="text" ng-model="user.qr4"></div>
+                <div class="col"><button class="button icon ion-qr-scanner" ng-click="startscan4()">
+                </button></div>
+            </div>
+            <div class="item item-input-inset item-input-inset">
+                <div class="col">User 5</div>
+                <div class="col"><input type="text" ng-model="user.qr5"></div>
+                <div class="col"><button class="button icon ion-qr-scanner" ng-click="startscan5()">
+                </button></div>
+            </div>
+            <div class="item item-input-inset item-input-inset">
+                <div class="col">User 6</div>
+                <div class="col"><input type="text" ng-model="user.qr6"></div>
+                <div class="col"><button class="button icon ion-qr-scanner" ng-click="startscan6()">
+                </button></div>
+            </div>
+        </div>
+        <div class="list row responsive-sm ">
+                  <a href="#/confirm" class=" button icon-right ion-chevron-right button-calm">Next</a>
+                </div>
+        </ion-view>
+        </ion-content>
+        </script>
+
+
+     <script type="text/ng-template" id="/user.html" >
+        <ion-view title="Participant/Winner">
+        <ion-content class="padding">
+        <div class="list list-inset">
+            <div class="item item-input-inset item-input-inset">
+                <div class="col textcolor">Participant</div>
+                <div class="col"><input  pattern="KQ15[0-9]{4}" type="text" ng-model="user.qr1"></div>
+                <div class="col"><button class="button icon ion-qr-scanner" ng-click="startscan1()">
+                </button></div>
+            </div>
+        </div>
+        <div class="list row responsive-sm ">
+                  <a href="#/confirm" class=" button icon-right ion-chevron-right button-calm">Next</a>
+                </div>
+        </ion-view>
+        </ion-content>
+        </script>
+
+
+
+
+        <script type="text/ng-template" id="/confirm.html" >
+        <ion-view title="Team Members">
+        <ion-content class="padding">
+        <div class="list row responsive-sm  ">        
+        <table>
+        <tr>
+        <td class="textcolor" >Event Name </td>
+        <td>
+            {{user.event_name}}
+        </td>
+        </tr>
+        <tr>
+        <td class="textcolor">Round </td>
+        <td>
+            {{user.round}}
+        </td>
+        </tr>
+        <tr>
+        <td class="textcolor">Place  </td>
+        <td>
+            {{user.place}}
+        </td>
+        </tr>
+        <tr>
+        <td class="textcolor">Participant type &nbsp;&nbsp;</td>
+        <td>
+            {{user.participant_type}}
+        </td>
+        </tr>
+        <tr ng-hide="user.participant_type=='Individual'">
+        <td class="textcolor">Team name </td>
+        <td>
+            {{user.teamname}}
+        </td>
+        </tr>
+        <tr>
+        <td class="textcolor">Participant 1</td>
+        <td>
+            {{user.qr1}}
+        </td>
+        </tr>
+        <tr ng-hide="user.qr2==''">
+        <td class="textcolor">Participant 2 </td>
+        <td>
+            {{user.qr2}}
+        </td>
+        </tr>
+        <tr ng-hide="user.qr3==''">
+        <td class="textcolor">Participant 3 </td>
+        <td>
+           {{ user.qr3}}
+        </td>
+        </tr>
+        <tr ng-hide="user.qr4==''">
+        <td class="textcolor">Participant 4</td>
+        <td>
+            {{user.qr4}}
+        </td>
+        </tr>
+        <tr ng-hide="user.qr5==''">
+        <td class="textcolor">Participant 5 </td>
+        <td>
+            {{user.qr5}}
+        </td>
+        </tr>
+        <tr ng-hide="user.qr6==''">
+        <td class="textcolor">Participant 6 </td>
+        <td>
+                {{user.qr6}}
+        </td>
+        </tr>
+        </table>
+        
+        <br>       &nbsp;<br>&nbsp; <br>
+
+        <input type="submit" ng-click="insert()" value="submit" class=" button icon-right ion-chevron-right button-calm" data-inline="true"/>
+        
+          
+        </div>
+        </ion-view>
+        </ion-content>
+        </script> 
+
+
+
+
+
+
+  </body>
+</html>
